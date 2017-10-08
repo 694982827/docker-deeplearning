@@ -94,37 +94,6 @@ RUN pip --no-cache-dir install \
         pyasn1
 
 
-#############################################
-# Anaconda Python 2.7
-#############################################
-# RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
-#     wget https://repo.continuum.io/archive/Anaconda2-4.2.0-Linux-x86_64.sh -O ~/anaconda.sh && \
-#     /bin/bash ~/anaconda.sh -b -p /opt/conda && \
-#     rm ~/anaconda.sh
-
-
-ADD Anaconda2-4.2.0-Linux-x86_64.sh /root/anaconda.sh
-RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
-      /bin/bash /root/anaconda.sh -b -p /opt/conda && \
-      rm /root/anaconda.sh
-
-ENV PATH /opt/conda/bin:$PATH
-
-RUN conda update -y conda && \
-    conda update -y numpy && \
-    conda update -y scipy && \
-    conda update -y pandas && \
-    conda update -y matplotlib && \
-    conda update -y requests && \
-        conda install -c conda-forge pika=0.10.0 && \
-    conda install scikit-image && \
-    pip install --upgrade pip && \
-    pip install --upgrade  git+git://github.com/Theano/Theano.git && \
-    pip install pyscenedetect --upgrade --no-dependencies
-
-# Configuration file for theano
-RUN echo -e "[global]\nfloatX = float32\ndevice = cpu\nopenmp = True" >> ~/.theanorc
-
 
 #############################################
 # OpenCV 3 w/ Python 2.7 from Anaconda
@@ -152,8 +121,8 @@ RUN cd ~/ &&\
 ENV PYTHONPATH /opt/opencv/lib/python2.7/site-packages:$PYTHONPATH
 
 
-# Jupyter
-   # python -m ipykernel.kernelspec
+
+
 
 
 # Install TensorFlow
